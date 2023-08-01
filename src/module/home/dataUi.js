@@ -1,4 +1,4 @@
-const context = document.querySelector(".home-page");
+const context = document.querySelector('.home-page');
 
 const dataUi = (element) => {
   //   console.log(element.idMeal);
