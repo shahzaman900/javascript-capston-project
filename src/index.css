@@ -58,10 +58,16 @@ a {
   border-radius: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 
 .title {
   padding: 0 30px;
+}
+
+#home {
+  font-size: 22px;
+  padding-left: 15rem;
 }
 
 .comment-btn {
