@@ -1,10 +1,9 @@
-/* eslint-disable quotes */
-import "./index.css";
+import './index.css';
 
-import dataUi from "./module/home/dataUi.js";
-import getData from "./module/home/getData.js";
-
-import getLike from "./module/home/getLikes.js";
+import dataUi from './module/home/dataUi.js';
+import getData from './module/home/getData.js';
+import countData from './module/home/counter.js';
+import getLike from './module/home/getLikes.js';
 
 const loadData = async () => {
   const data = await getData();
@@ -13,8 +12,9 @@ const loadData = async () => {
     let like = likes.find((x) => x.item_id === item.idMeal);
     if (like === undefined) {
       like = { item_id: item.idMeal, likes: 0 };
-      dataUi(item, like);
     }
+    dataUi(item, like);
   });
 };
 loadData();
+countData();
