@@ -42,6 +42,13 @@ const openCommentPopup = async (id, like) => {
   const titleElement = document.createElement('h1');
   titleElement.textContent = card.strMeal;
 
+  const commentsElement = document.createElement('h2');
+  commentsElement.innerHTML = 'Add a comment';
+
+  const commentInput = document.createElement('input');
+  commentInput.type = 'text';
+  commentInput.id = 'commentInput';
+  commentInput.placeholder = 'Enter you name';
 
 
 
