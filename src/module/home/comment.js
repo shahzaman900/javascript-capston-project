@@ -34,6 +34,9 @@ const postComment = async (id) => {
 // When the user clicks on the button, open the modal
 const openCommentPopup = async (id, like) => {
   const itemId = like.item_id;
+  const urlComments = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Ix2mMVLk4DRU3xtKMCQq/comments?item_id=${itemId}`;
+  const comments = await fetch(urlComments).then((res) => res.json(), (err) => console.log(err));
+  console.log(comments);
   modal.style.display = 'block';
   const card = data.find((card) => card.idMeal === id);
 
@@ -53,7 +56,17 @@ const openCommentPopup = async (id, like) => {
 
   const titleElement = document.createElement('h1');
   titleElement.textContent = card.strMeal;
+  const commentDisplaySections = document.createElement('div');
+  commentDisplaySections.id = 'commentDisplaySections';
 
+  const title = document.createElement('h2');
+  title.innerHTML = 'Add a comment';
+
+  if(comments?.length > 0)
+  comments?.forEach((comment) => {
+    const content = document.createElement('p');
+    content.innerHTML += `${comment.creation_date}: ${comment.username} ${comment.comment}`;
+    commentDisplaySections.appendChild(content);
   const commentSection = document.createElement('div');
   commentSection.classList.add('commentSection');
 
@@ -86,12 +99,14 @@ const openCommentPopup = async (id, like) => {
   modalContent.appendChild(closeButton);
   modalContent.appendChild(popupImg);
   modalContent.appendChild(titleElement);
+  commentDisplaySections.appendChild(title);
+  // commentDisplaySections.appendChild(breakline);
+  modalContent.appendChild(commentDisplaySections);
   commentSection.appendChild(commentsElement);
   commentSection.appendChild(commentInput);
   commentSection.appendChild(commentText);
   commentSection.appendChild(commentBtn);
   modalContent.appendChild(commentSection);
-
   // Clear existing content and append the new modal content
   modal.innerHTML = '';
   modal.appendChild(modalContent);
