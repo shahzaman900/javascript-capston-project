@@ -1,5 +1,4 @@
 import './index.css';
-
 import dataUi from './module/home/dataUi.js';
 import getData from './module/home/getData.js';
 import countData from './module/home/counter.js';
@@ -16,5 +15,6 @@ const loadData = async () => {
     dataUi(item, like);
   });
 };
+
 loadData();
 countData();
