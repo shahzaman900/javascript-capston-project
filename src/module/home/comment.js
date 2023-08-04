@@ -46,10 +46,11 @@ const openCommentPopup = async (id, like) => {
   const title = document.createElement('h2');
   title.innerHTML = 'Add a comment';
 
-  const content = document.createElement('p');
   if(comments?.length > 0)
   comments?.forEach((comment) => {
+    const content = document.createElement('p');
     content.innerHTML += `${comment.creation_date}: ${comment.username} ${comment.comment}`;
+    commentDisplaySections.appendChild(content);
   });
 
   // Append elements to the modal content
@@ -57,7 +58,7 @@ const openCommentPopup = async (id, like) => {
   modalContent.appendChild(popupImg);
   modalContent.appendChild(titleElement);
   commentDisplaySections.appendChild(title);
-  commentDisplaySections.appendChild(content);
+  // commentDisplaySections.appendChild(breakline);
   modalContent.appendChild(commentDisplaySections);
 
   // Clear existing content and append the new modal content
