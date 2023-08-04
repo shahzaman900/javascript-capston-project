@@ -16,5 +16,5 @@ const loadData = async () => {
   });
 };
 
-loadData();
+export default loadData();
 countData();

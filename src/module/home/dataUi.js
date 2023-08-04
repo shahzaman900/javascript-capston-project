@@ -1,4 +1,5 @@
 import openCommentPopup from './comment.js';
+import updatelike from './updateLike.js';
 
 const context = document.querySelector('.home-page');
 
@@ -25,6 +26,7 @@ const dataUi = (element, like) => {
     likeButton.id = like.item_id;
     likeButton.className = 'like-button';
     likeButton.innerHTML = `<i class="fa-regular fa-heart"></i>(${like.likes})likes`;
+    likeButton.onclick = () => updatelike(like);
 
     const commentDiv = document.createElement('div');
     commentDiv.className = 'comment';
