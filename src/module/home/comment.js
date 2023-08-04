@@ -33,20 +33,19 @@ const postComment = async (id) => {
 // Get comments
 export const getComment = async (itemId) => {
   const urlComments = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Ix2mMVLk4DRU3xtKMCQq/comments?item_id=${itemId}`;
-  const comments = await fetch(urlComments).then((res) => res.json(), (err) => console.log(err));
+  const comments = await fetch(urlComments).then((res) => res.json(), (err) => (err));
   return comments;
 };
 
 // display commentsCount
 export const getCommentsCount = async (itemId) => {
-  const comments = await getComment(itemId)
-  return comments?.length === undefined ? '0' : comments.length
-}
+  const comments = await getComment(itemId);
+  return comments?.length === undefined ? '0' : comments.length;
+};
 
 // When the user clicks on the button, open the modal
 const openCommentPopup = async (id, like) => {
   const itemId = like.item_id;
-  console.log(itemId);
   const comments = await getComment(itemId);
   const commentsCount = await getCommentsCount(itemId);
   modal.style.display = 'block';
@@ -75,13 +74,13 @@ const openCommentPopup = async (id, like) => {
   title.innerHTML = `Comments (${commentsCount})`;
   commentDisplaySections.appendChild(title);
 
-  if (comments?.length > 0)
-    comments?.forEach((comment) => {
+  if (comments?.length > 0) {
+  comments.forEach((comment) => {
       const content = document.createElement('p');
       content.innerHTML += `${comment.creation_date}: ${comment.username} : "${comment.comment}"`;
       commentDisplaySections.appendChild(content);
-
     });
+  }
   const commentSection = document.createElement('div');
   commentSection.classList.add('commentSection');
 

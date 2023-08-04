@@ -7,7 +7,7 @@ const postLikes = async (like) => {
       item_id: like,
     }),
   }).then((response) => response.json())
-    .then((messages) => console.log(messages));
+    .then((messages) => (messages));
   return likes.json();
 };
 
