@@ -2,7 +2,7 @@ import openCommentPopup from './comment.js';
 
 const context = document.querySelector('.home-page');
 
-const dataUi = (element) => {
+const dataUi = (element, like) => {
     const div = document.createElement('div');
     div.className = 'items';
 
@@ -22,9 +22,9 @@ const dataUi = (element) => {
     likeDiv.className = 'like';
 
     const likeButton = document.createElement('button');
-    likeButton.id = element.idMeal;
+    likeButton.id = like.item_id;
     likeButton.className = 'like-button';
-    likeButton.innerHTML = '<i class="fa-regular fa-heart"></i>likes';
+    likeButton.innerHTML = `<i class="fa-regular fa-heart"></i>(${like.likes})likes`;
 
     const commentDiv = document.createElement('div');
     commentDiv.className = 'comment';
@@ -33,7 +33,7 @@ const dataUi = (element) => {
     commentButton.id = 'comment';
     commentButton.className = 'comment-btn';
     commentButton.textContent = 'comments';
-    commentButton.onclick = () => openCommentPopup(element.idMeal);
+    commentButton.onclick = () => openCommentPopup(element.idMeal, like);
 
     likeDiv.appendChild(likeButton);
     commentDiv.appendChild(commentButton);
