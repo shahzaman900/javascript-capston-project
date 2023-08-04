@@ -1,10 +1,8 @@
 import getData from './getData.js';
-// import getComments from './getsComments.js';
-// import addComment from './postComments.js';
 
 const modal = document.getElementById('myModal');
 
-  // get data
+// get data
 const data = await getData();
 
 // get comments
@@ -33,14 +31,14 @@ const postComment = async (id) => {
 };
 
 // Get comments
-const getComment = async (itemId) => {
+export const getComment = async (itemId) => {
   const urlComments = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Ix2mMVLk4DRU3xtKMCQq/comments?item_id=${itemId}`;
   const comments = await fetch(urlComments).then((res) => res.json(), (err) => console.log(err));
   return comments;
 };
 
 // display commentsCount
-const getCommentsCount = async (itemId) => {
+export const getCommentsCount = async (itemId) => {
   const comments = await getComment(itemId)
   return comments?.length === undefined ? '0' : comments.length
 }
@@ -48,6 +46,7 @@ const getCommentsCount = async (itemId) => {
 // When the user clicks on the button, open the modal
 const openCommentPopup = async (id, like) => {
   const itemId = like.item_id;
+  console.log(itemId);
   const comments = await getComment(itemId);
   const commentsCount = await getCommentsCount(itemId);
   modal.style.display = 'block';

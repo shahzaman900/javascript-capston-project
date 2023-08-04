@@ -49,6 +49,7 @@
     ]
   },
   "dependencies": {
-    "@types/jest": "^29.5.3"
+    "@types/jest": "^29.5.3",
+    "jsdom": "^22.1.0"
   }
 }
