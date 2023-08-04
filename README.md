@@ -31,7 +31,7 @@
 -   [📝 License](#license)
 
 
-# 📖 My Personal Portfolio <a name="about-project"></a>
+# 📖 Javascript Capstone Project <a name="about-project"></a>
 
 > This website shows a sneak peek into the projects I have developed and deployed, showcasing my skills in HTML and CSS and javascript.With a passion for web development, I have honed my expertise in these technologies to create stunning and functional websites.
 
