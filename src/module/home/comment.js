@@ -6,7 +6,6 @@ const modal = document.getElementById('myModal');
 
   // get data
 const data = await getData();
-console.log('mealData', data);
 
 // get comments
 
@@ -18,18 +17,23 @@ const close = () => {
 let namee = document.getElementById('commentName');
 let text = document.getElementById('commentText');
 
-const addComment = () => {
-  console.log(namee, text);
+const postComment = async (id) => {
+  const urlComments = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Ix2mMVLk4DRU3xtKMCQq/comments';
+  const addComment = await fetch(urlComments, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      item_id: id,
+      username: namee,
+      comment: text,
+    }),
+  });
+  return addComment.json();
 };
 
 // When the user clicks on the button, open the modal
 const openCommentPopup = async (id, like) => {
-  // console.log(like);
-  const ids = like.item_id;
-  const urlComments = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Ix2mMVLk4DRU3xtKMCQq/comments?item_id=${ids}`;
-  const comments = await fetch(urlComments).then((res) => res.json());
-  // const comments = await getComments(like);
-
+  const itemId = like.item_id;
   modal.style.display = 'block';
   const card = data.find((card) => card.idMeal === id);
 
@@ -75,7 +79,7 @@ const openCommentPopup = async (id, like) => {
   commentBtn.addEventListener('click', () => {
     namee = document.getElementById('commentName').value;
     text = document.getElementById('commentText').value;
-    addComment();
+    postComment(itemId);
   });
 
   // Append elements to the modal content
@@ -92,6 +96,5 @@ const openCommentPopup = async (id, like) => {
   modal.innerHTML = '';
   modal.appendChild(modalContent);
 };
-
 
 export default openCommentPopup;
