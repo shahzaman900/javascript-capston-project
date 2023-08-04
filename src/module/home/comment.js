@@ -17,6 +17,7 @@ const close = () => {
 let namee = document.getElementById('commentName');
 let text = document.getElementById('commentText');
 
+// Post comments
 const postComment = async (id) => {
   const urlComments = 'https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Ix2mMVLk4DRU3xtKMCQq/comments';
   const addComment = await fetch(urlComments, {
@@ -31,12 +32,24 @@ const postComment = async (id) => {
   return addComment.json();
 };
 
+// Get comments
+const getComment = async (itemId) => {
+  const urlComments = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Ix2mMVLk4DRU3xtKMCQq/comments?item_id=${itemId}`;
+  const comments = await fetch(urlComments).then((res) => res.json(), (err) => console.log(err));
+  return comments;
+};
+
+// display commentsCount
+const getCommentsCount = async (itemId) => {
+  const comments = await getComment(itemId)
+  return comments?.length === undefined ? '0' : comments.length
+}
+
 // When the user clicks on the button, open the modal
 const openCommentPopup = async (id, like) => {
   const itemId = like.item_id;
-  const urlComments = `https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/Ix2mMVLk4DRU3xtKMCQq/comments?item_id=${itemId}`;
-  const comments = await fetch(urlComments).then((res) => res.json(), (err) => console.log(err));
-  console.log(comments);
+  const comments = await getComment(itemId);
+  const commentsCount = await getCommentsCount(itemId);
   modal.style.display = 'block';
   const card = data.find((card) => card.idMeal === id);
 
@@ -60,13 +73,16 @@ const openCommentPopup = async (id, like) => {
   commentDisplaySections.id = 'commentDisplaySections';
 
   const title = document.createElement('h2');
-  title.innerHTML = 'Add a comment';
+  title.innerHTML = `Comments (${commentsCount})`;
+  commentDisplaySections.appendChild(title);
 
-  if(comments?.length > 0)
-  comments?.forEach((comment) => {
-    const content = document.createElement('p');
-    content.innerHTML += `${comment.creation_date}: ${comment.username} ${comment.comment}`;
-    commentDisplaySections.appendChild(content);
+  if (comments?.length > 0)
+    comments?.forEach((comment) => {
+      const content = document.createElement('p');
+      content.innerHTML += `${comment.creation_date}: ${comment.username} : "${comment.comment}"`;
+      commentDisplaySections.appendChild(content);
+
+    });
   const commentSection = document.createElement('div');
   commentSection.classList.add('commentSection');
 
@@ -75,14 +91,13 @@ const openCommentPopup = async (id, like) => {
 
   const commentInput = document.createElement('input');
   commentInput.type = 'text';
-  commentInput.value = 'Add a comment';
   commentInput.id = 'commentName';
   commentInput.placeholder = 'Enter you name';
 
   const commentText = document.createElement('textArea');
   commentText.id = 'commentText';
   commentText.value = '';
-  commentText.placeholder = 'add a comment';
+  commentText.placeholder = 'Add a comment';
   commentText.rows = 10;
   commentText.cols = 10;
 
@@ -99,7 +114,6 @@ const openCommentPopup = async (id, like) => {
   modalContent.appendChild(closeButton);
   modalContent.appendChild(popupImg);
   modalContent.appendChild(titleElement);
-  commentDisplaySections.appendChild(title);
   // commentDisplaySections.appendChild(breakline);
   modalContent.appendChild(commentDisplaySections);
   commentSection.appendChild(commentsElement);
