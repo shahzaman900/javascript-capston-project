@@ -1,4 +1,5 @@
 import openCommentPopup from './comment.js';
+// eslint-disable-next-line import/no-cycle
 import updatelike from './updateLike.js';
 
 const context = document.querySelector('.home-page');
